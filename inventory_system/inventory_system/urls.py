@@ -12,6 +12,5 @@ router.register(r'product', ProductViewSet, basename='product')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/v1/', include(router.urls)),  # http://127.0.0.1:8000/api/v1/company/
-    path('api/v1/', include(router.urls)),  # http://127.0.0.1:8000/api/v1/product/
+    path('api/v1/', include(router.urls)),
 ]

@@ -1,4 +1,4 @@
-from rest_framework import mixins
+from rest_framework import mixins, pagination
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -6,6 +6,10 @@ from .serializers import ProductSerializer
 from .models import Product
 from company.models import Company
 
+class CustomPagination(pagination.PageNumberPagination):
+    page_size = 2
+    page_size_query_param = 'page_size'
+    max_page_size = 100
 
 class ProductViewSet(mixins.CreateModelMixin,
                    mixins.RetrieveModelMixin,
@@ -15,6 +19,7 @@ class ProductViewSet(mixins.CreateModelMixin,
                    GenericViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    pagination_class = CustomPagination
     
     def get_queryset(self):
         pk = self.kwargs.get("pk")
